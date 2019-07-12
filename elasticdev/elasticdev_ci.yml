@@ -31,6 +31,4 @@ build:
 destroy:
    stack_name: elasticdev:::ed_core::callback_delete
    arguments:
-       keep_resources:
-           - provider: aws
-             resource_type: ecr_repo
+       pre_delete_resources: True
