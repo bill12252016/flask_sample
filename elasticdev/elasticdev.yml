@@ -6,12 +6,16 @@ infrastructure:
        stack_name: elasticdev:::ecr_repo
        arguments:
           name: flask_sample
+       credentials:
+           - do
    dockerhost:
        stack_name: elasticdev:::ec2_docker_host
        arguments:
           size: t2.micro
           disksize: 25
-       stack_vars:
+       credentials:
+           - aws
+       overide_stack_args:
            - name: elasticdev:::ubuntu::ec2_ubuntu
              arguments:
                   ip_key: public_ip
@@ -29,6 +33,10 @@ build:
            dockerfile_test: Dockerfile_test
            triggered_branches:
              - dev
+       credentials:
+           - docker
+       inputvars:
+           - docker_build
 destroy:
    stack_name: elasticdev:::ed_core::callback_delete
    arguments:
